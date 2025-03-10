@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--black-50);
+  padding: 8px;
+  gap: 8px;
+
+  .field {
+    flex: 1;
+    padding-left: 8px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    line-height: 135%;
+    color: var(--black-200);
+    resize: none;
+  }
+
+  .submit {
+    border: none;
+    display: grid;
+    width: 28px;
+    aspect-ratio: 1;
+    place-items: center;
+    background-color: var(--blue-400);
+    border-radius: 8px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
