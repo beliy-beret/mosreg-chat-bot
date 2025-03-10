@@ -1,0 +1,124 @@
+.header {
+  background-color: var(--white);
+  padding: 24px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    background-color: var(--black-400);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    aspect-ratio: 1;
+    border: none;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  z-index: 101;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #29273EB2;
+  transition: translate 300ms ease-in-out;
+
+  .nav {
+    background-color: var(--white);
+    padding: 24px 24px 24px 10px;
+    max-width: 314px;
+    height: 100%;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .name {
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 132%;
+        color: var(--black-700)
+      }
+
+      button {
+        flex: 0 0 36px;
+        margin-left: auto;
+        background-color: var(--black-400);
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border: none;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .chatList {
+      margin-top: 48px;
+
+      .addDialogBtn {
+        margin-bottom: 48px;
+        width: 100%;
+        background-color: var(--black-400);
+        border: none;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        color: var(--black-25);
+        padding: 12px 16px;
+        font-size: 16px;
+        line-height: 147%;
+        font-weight: 500;
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+
+  &[aria-expanded='true'] {
+    translate: 100% 0;
+  }
+}
+
+.sideBar {
+  @media (min-width: 768px) {
+    .header {
+      display: none;
+    }
+
+    .wrapper {
+      position: static;
+      width: 238px;
+      height: 100%;
+      background-color: transparent;
+      translate: unset;
+
+      .nav {
+        .logo {
+          button {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

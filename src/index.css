@@ -1,0 +1,90 @@
+@import 'assets/fonts';
+
+:root {
+  --body: #FAFAFA;
+  --white: #FFFFFF;
+  --black-25: #EAEBF1;
+  --black-50: #DCDEE6;
+  --black-100: #C2C3CA;
+  --black-200: #92949D;
+  --black-300: #585A64;
+  --black-400: #2A2C36;
+  --black-500: #202233;
+  --black-600: #12152A;
+  --black-700: #080B22;
+  --black-800: #000109;
+
+  --blue-25: #EFF2FF;
+  --blue-50: #BBCEFF;
+  --blue-100: #98B5FF;
+  --blue-200: #799EFA;
+  --blue-300: #527EEB;
+  --blue-400: #1B4DCB;
+  --blue-500: #0E3BAC;
+  --blue-600: #0E2E7E;
+  --blue-700: #061C52;
+  --blue-800: #020C23;
+
+  --azure-25: #D3FCFF;
+  --azure-50: #A9F8FD;
+  --azure-100: #75F0F8;
+  --azure-200: #59E9F3;
+  --azure-300: #21C6D3;
+  --azure-400: #14A8B3;
+  --azure-500: #10939D;
+  --azure-600: #096C74;
+  --azure-700: #003C41;
+  --azure-800: #002022;
+
+  --red-25: #FFD6D7;
+  --red-50: #FFBBBC;
+  --red-100: #FF9EA0;
+  --red-200: #FF7C7E;
+  --red-300: #F85E60;
+  --red-400: #E5494B;
+  --red-500: #D53437;
+  --red-600: #C71A1D;
+  --red-700: #970003;
+  --red-800: #490305;
+
+  --yelolow25: #FBF6D8;
+  --yelolow50: #FDF1B1;
+  --yelolow100: #FFF09E;
+  --yelolow200: #F9E780;
+  --yelolow300: #F0DB63;
+  --yelolow400: #E5CE49;
+  --yelolow500: #D9BE25;
+  --yelolow600: #B99F0C;
+  --yelolow700: #947F04;
+  --yelolow800: #433900;
+
+  --green-25: #D0FFE7;
+  --green-50: #B2FFD7;
+  --green-100: #92F5C2;
+  --green-200: #73EEAF;
+  --green-300: #4CD990;
+  --green-400: #1BCB70;
+  --green-500: #15AA5D;
+  --green-600: #108649;
+  --green-700: #0C6939;
+  --green-800: #024523;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+
+main {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
