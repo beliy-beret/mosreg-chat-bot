@@ -31,7 +31,6 @@ export const HistoryItem = ({ title, selected, onSelected }: Props) => {
 
   const sendNewTitle = () => {
     setIsEdit(false);
-    console.log(inputValue);
   };
 
   const onEnterPress = (event: KeyboardEvent) => {

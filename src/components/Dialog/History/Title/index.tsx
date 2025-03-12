@@ -16,7 +16,6 @@ export const Title = ({ themeName }: Props) => {
 
   const sendNewTitle = () => {
     setIsEdit(false);
-    console.log(inputValue);
   };
 
   const onEnterPress = (event: KeyboardEvent) => {
