@@ -1,0 +1,37 @@
+.message {
+  display: flex;
+  width: fit-content;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 135%;
+  color: var(--black-800);
+  align-self: start;
+
+  .text {
+    flex: 1;
+    white-space: pre-wrap;
+  }
+
+  .imgContainer {
+    flex: 0 0 36px;
+    width: 36px;
+    aspect-ratio: 1;
+    align-self: start;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: cover;
+    }
+  }
+
+  &[aria-selected='false'] {
+    padding: 8px;
+    border-radius: 6px;
+    background-color: var(--blue-25);
+    align-self: end;
+  }
+}
+

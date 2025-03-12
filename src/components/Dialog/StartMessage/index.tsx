@@ -10,31 +10,37 @@ const questions = [
   'Календарь инвестора',
 ];
 
-export const StartMessage = () => {
+type Props = {
+  onSubmit: (message: string) => void;
+};
+
+export const StartMessage = ({ onSubmit }: Props) => {
   const [question, setQuestion] = useState('');
 
   return (
-    <div className={style.message}>
-      <div className={style.ipalit}>
-        <div className={style.imgContainer}>
-          <img src={avatar} alt="" />
+    <div className={style.wrapper}>
+      <div className={style.message}>
+        <div className={style.ipalit}>
+          <div className={style.imgContainer}>
+            <img src={avatar} alt="" />
+          </div>
+          <div>
+            <p>Привет, я Ипполит</p>
+            <p className={style.question}>Чем вам помочь?</p>
+          </div>
         </div>
-        <div>
-          <p>Привет, я Ипполит</p>
-          <p className={style.question}>Чем вам помочь?</p>
+
+        <MessageForm defaultValue={question} onSubmit={onSubmit} />
+
+        <div className={style.questionList}>
+          {questions.map((question, i) => {
+            return (
+              <div className={style.listItem} onClick={() => setQuestion(question)} key={i}>
+                {question}
+              </div>
+            );
+          })}
         </div>
-      </div>
-
-      <MessageForm defaultValue={question} onSubmit={(message) => console.log(message)} />
-
-      <div className={style.questionList}>
-        {questions.map((question, i) => {
-          return (
-            <div className={style.listItem} onClick={() => setQuestion(question)} key={i}>
-              {question}
-            </div>
-          );
-        })}
       </div>
     </div>
   );

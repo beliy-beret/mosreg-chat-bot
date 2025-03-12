@@ -2,12 +2,12 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import style from './style.module.scss';
 
 type Props = {
-  defaultValue: string;
   onSubmit: (value: string) => void;
+  defaultValue?: string;
   rows?: number;
 };
 
-export const MessageForm = ({ onSubmit, defaultValue, rows = 3 }: Props) => {
+export const MessageForm = ({ onSubmit, defaultValue = '', rows = 3 }: Props) => {
   const [message, setMessage] = useState('');
 
   const onChangeMessage = (event: ChangeEvent<HTMLTextAreaElement>) => {

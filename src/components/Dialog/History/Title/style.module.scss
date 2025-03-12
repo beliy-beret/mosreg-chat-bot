@@ -1,0 +1,40 @@
+.wrapper {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 31px 50px 0 #0E2E7E1F;
+  width: calc(100% - 24px);
+  max-width: 748px;
+  margin-inline: auto;
+
+  .title {
+    display: grid;
+    grid-template-columns: 1fr 28px;
+    gap: 8px;
+
+    h1 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 150%;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    button {
+      background-color: var(--black-400);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      aspect-ratio: 1;
+      border: none;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
