@@ -77,6 +77,7 @@
   font-family: 'Manrope', sans-serif;
   font-style: normal;
   font-weight: 400;
+  scroll-behavior: smooth;
 }
 
 main {
@@ -86,5 +87,82 @@ main {
 
   @media (min-width: 768px) {
     flex-direction: row;
+  }
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: var(--black-25);
+  padding: 12px 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 200ms ease-in-out;
+
+  svg {
+    path {
+      fill: currentColor;
+    }
+  }
+
+  &.black {
+    background-color: var(--black-400);
+    color: var(--white);
+
+    &:active {
+      background-color: var(--black-600);
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px var(--black-100);
+    }
+
+    @media(hover: hover) {
+      &:hover {
+        background-color: var(--black-500);
+      }
+    }
+  }
+
+  &.blue {
+    background-color: var(--blue-400);
+    color: var(--white);
+
+    &:active {
+      background-color: var(--blue-600);
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px var(--blue-100);
+    }
+
+    @media(hover: hover) {
+      &:hover {
+        background-color: var(--blue-500);
+      }
+    }
+  }
+
+  &.gray {
+    background-color: var(--black-25);
+    color: var(--black-300);
+
+    &:active {
+      background-color: var(--black-100);
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px var(--black-100);
+    }
+
+    @media(hover: hover) {
+      &:hover {
+        background-color: var(--black-50);
+      }
+    }
   }
 }

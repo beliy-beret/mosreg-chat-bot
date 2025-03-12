@@ -23,13 +23,44 @@
     }
 
     button {
-      background-color: var(--black-400);
       border-radius: 8px;
       display: grid;
       place-items: center;
       width: 28px;
       aspect-ratio: 1;
-      border: none;
+      padding: 0;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .titleForm {
+    display: grid;
+    grid-template-columns: 1fr 28px;
+    gap: 8px;
+    align-items: center;
+
+    input {
+      width: 100%;
+      padding: 8px 16px;
+      border: 1px solid var(--blue-600);
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+      line-height: 135%;
+      color: var(--black-400);
+    }
+
+    button {
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      aspect-ratio: 1;
+      padding: 0;
 
       svg {
         width: 16px;

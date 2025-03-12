@@ -25,7 +25,7 @@ export const Sidebar = () => {
           </div>
 
           <div className={style.chatList}>
-            <button className={style.addDialogBtn}>
+            <button className={`${style.addDialogBtn} btn black`}>
               <AddDialog />
               Новый чат
             </button>

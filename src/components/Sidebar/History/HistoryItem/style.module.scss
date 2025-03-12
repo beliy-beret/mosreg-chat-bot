@@ -5,6 +5,7 @@
   grid-template-columns: 1fr auto;
   border-radius: 6px;
   gap: 16px;
+  transition: background-color 200ms ease-in-out;
 
   .title {
     color: var(--black-700);
@@ -20,13 +21,12 @@
   .actionsBtn {
     width: 22px;
     height: 22px;
-    border: none;
     border-radius: 6px;
     display: grid;
     place-items: center;
-    background-color: var(--black-25);
     position: relative;
     z-index: 1;
+    padding: 0;
 
     svg {
       width: 12px;
@@ -39,9 +39,17 @@
     inset: 0;
     border: none;
     background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    border-radius: 6px;
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px var(--black-100);
+    }
   }
 
   .actionsItem {
+    width: 100%;
     border: none;
     background-color: transparent;
     display: flex;
@@ -49,13 +57,31 @@
     gap: 8px;
     padding: 6px 12px;
     color: var(--white);
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--black-500);
+      }
+    }
   }
 
   &[aria-selected='true'] {
-    background-color: var(--black-25);
+    background-color: var(--black-50);
 
     .actionsBtn {
-      background-color: var(--black-50);
+      background-color: var(--black-100);
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--black-25);
+
+      .actionsBtn {
+        background-color: var(--black-50);
+      }
     }
   }
 }

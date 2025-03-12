@@ -1,9 +1,9 @@
 .dialog {
   flex: 1;
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   background-color: var(--body);
-  height: 100%;
   max-height: 91dvh;
   overflow: hidden;
 

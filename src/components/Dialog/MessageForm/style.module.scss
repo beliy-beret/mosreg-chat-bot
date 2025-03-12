@@ -20,13 +20,11 @@
 
   .submit {
     align-self: end;
-    border: none;
     display: grid;
     width: 28px;
     aspect-ratio: 1;
     place-items: center;
-    background-color: var(--blue-400);
-    border-radius: 8px;
+    padding: 0;
 
     svg {
       width: 16px;

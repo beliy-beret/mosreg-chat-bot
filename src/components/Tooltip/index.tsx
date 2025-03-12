@@ -1,10 +1,14 @@
-import { ReactNode } from 'react';
+import { ReactNode, forwardRef } from 'react';
 import style from './style.module.scss';
 
 type Props = {
   children: ReactNode;
 };
 
-export const Tooltip = ({ children }: Props) => {
-  return <div className={style.tooltip}>{children}</div>;
-};
+export const Tooltip = forwardRef<HTMLDivElement, Props>(({ children }, ref) => {
+  return (
+    <div ref={ref} className={style.tooltip}>
+      {children}
+    </div>
+  );
+});

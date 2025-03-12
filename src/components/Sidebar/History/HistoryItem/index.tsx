@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import style from './style.module.scss';
 import { Tooltip } from 'components/Tooltip';
 import { Pen, Trash } from 'assets/icons';
@@ -13,6 +13,8 @@ export const HistoryItem = ({ title, selected, onSelected }: Props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isShowActions, setIsShowActions] = useState(false);
   const [inputValue, setInputValue] = useState(title);
+
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.currentTarget.value);
@@ -38,6 +40,20 @@ export const HistoryItem = ({ title, selected, onSelected }: Props) => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
+        setIsShowActions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isShowActions]);
+
   return (
     <>
       {isEdit && (
@@ -55,7 +71,7 @@ export const HistoryItem = ({ title, selected, onSelected }: Props) => {
       {!isEdit && (
         <div className={style.historyItem} aria-selected={selected}>
           {isShowActions && (
-            <Tooltip>
+            <Tooltip ref={tooltipRef}>
               <button className={style.actionsItem} onClick={onEdit}>
                 <Pen />
                 Редактировать тему
@@ -69,7 +85,10 @@ export const HistoryItem = ({ title, selected, onSelected }: Props) => {
 
           <span className={style.title}>{title}</span>
 
-          <button onClick={() => setIsShowActions(!isShowActions)} className={style.actionsBtn}>
+          <button
+            onClick={() => setIsShowActions(!isShowActions)}
+            className={`btn gray ${style.actionsBtn}`}
+          >
             <svg
               width="12"
               height="12"

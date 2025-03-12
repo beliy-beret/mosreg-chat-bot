@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import style from './style.module.scss';
 import { StartMessage } from './StartMessage';
 import { useState } from 'react';
@@ -37,22 +38,10 @@ const list: MessageType[] = [
       'Выкуп имущества в рассрочку: Возможность приобретения недвижимости или оборудования в рассрочку на выгодных условиях.',
     isBot: true,
   },
-  {
-    id: 4,
-    text:
-      'В Московской области существует множество мер поддержки для предпринимателей, направленных на развитие бизнеса, создание новых рабочих мест и улучшение экономической среды. Вот основные направления и программы:\n' +
-      '1. Финансовая поддержка\n' +
-      'Субсидии и гранты: Предприниматели могут получить субсидии на возмещение части затрат, например, на аренду, закупку оборудования, участие в выставках или сертификацию продукции.\n' +
-      'Льготные кредиты: Программы льготного кредитования через региональные банки и фонды поддержки бизнеса.\n' +
-      'Компенсация процентных ставок: Частичное возмещение процентных ставок по кредитам, взятым на развитие бизнеса.\n' +
-      '2. Имущественная поддержка\n' +
-      'Льготная аренда: Предоставление помещений в аренду на льготных условиях через региональные фонды.\n' +
-      'Выкуп имущества в рассрочку: Возможность приобретения недвижимости или оборудования в рассрочку на выгодных условиях.',
-    isBot: true,
-  },
 ];
 
 export const Dialog = () => {
+  const historyRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<MessageType[]>(list);
 
   const sendMessage = (message: string) => {
@@ -64,12 +53,16 @@ export const Dialog = () => {
     setMessages((state) => [...state, newMessage]);
   };
 
+  useEffect(() => {
+    historyRef.current?.lastElementChild?.scrollIntoView();
+  }, [messages]);
+
   return (
     <section className={style.dialog}>
       {!messages.length && <StartMessage onSubmit={sendMessage} />}
       {!!messages.length && (
         <>
-          <History messages={messages} />
+          <History ref={historyRef} messages={messages} />
           <div className={style.messageForm}>
             <MessageForm onSubmit={sendMessage} />
           </div>

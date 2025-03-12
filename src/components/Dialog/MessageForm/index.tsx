@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect } from 'react';
+import { ChangeEvent, useState, useEffect, KeyboardEvent } from 'react';
 import style from './style.module.scss';
 
 type Props = {
@@ -15,7 +15,22 @@ export const MessageForm = ({ onSubmit, defaultValue = '', rows = 3 }: Props) =>
   };
 
   const onSendMessage = () => {
-    onSubmit(message);
+    if (message.trim().length) {
+      onSubmit(message.trim());
+      setMessage('');
+    }
+  };
+
+  const onEnterPress = (event: KeyboardEvent) => {
+    if (event.ctrlKey && event.key === 'Enter' && !!message.trim().length) {
+      setMessage((state) => state + '\r\n');
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      onSendMessage();
+    }
   };
 
   useEffect(() => {
@@ -29,10 +44,11 @@ export const MessageForm = ({ onSubmit, defaultValue = '', rows = 3 }: Props) =>
         value={message}
         placeholder="Сообщение"
         onChange={onChangeMessage}
+        onKeyDown={onEnterPress}
         rows={rows}
         autoFocus
       ></textarea>
-      <button className={style.submit} onClick={onSendMessage}>
+      <button className={`${style.submit} btn blue`} onClick={onSendMessage}>
         <svg
           width="16"
           height="16"
