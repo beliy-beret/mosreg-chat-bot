@@ -1,5 +1,6 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-  withCredentials: false,
+  baseURL: 'http://dev.invest.mosreg.ru:10012',
+  withCredentials: true,
 });

@@ -2,14 +2,18 @@ import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import style from './style.module.scss';
 import { Tooltip } from 'components/Tooltip';
 import { Pen, Trash } from 'assets/icons';
+import { useUnit } from 'effector-react';
+import { deleteDialog } from 'store/dialogs';
 
 type Props = {
+  id: string;
   title: string;
   selected: boolean;
   onSelected: () => void;
 };
 
-export const HistoryItem = ({ title, selected, onSelected }: Props) => {
+export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
+  const delDialog = useUnit(deleteDialog);
   const [isEdit, setIsEdit] = useState(false);
   const [isShowActions, setIsShowActions] = useState(false);
   const [inputValue, setInputValue] = useState(title);
@@ -26,9 +30,8 @@ export const HistoryItem = ({ title, selected, onSelected }: Props) => {
   };
 
   const onDelete = () => {
-    setIsShowActions(false);
+    delDialog(id);
   };
-
   const sendNewTitle = () => {
     setIsEdit(false);
   };
