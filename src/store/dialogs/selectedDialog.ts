@@ -1,6 +1,7 @@
 import { createEvent, createStore } from 'effector';
+import { DialogType } from './types.ts';
 
-export const $selectedDialogId = createStore<string | null>(null);
-export const setSelectedDialogId = createEvent<string>();
+export const $selectedDialog = createStore<DialogType | null>(null);
+export const setSelectedDialog = createEvent<DialogType>();
 
-$selectedDialogId.on(setSelectedDialogId, (_, id) => id);
+$selectedDialog.on(setSelectedDialog, (_, dialog) => dialog);

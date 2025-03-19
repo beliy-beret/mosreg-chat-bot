@@ -2,7 +2,7 @@ import { createStore, createEffect, createEvent, sample, createApi } from 'effec
 import { DialogsStoreType, DialogType } from './types';
 import { instance } from '../axiosInstance';
 import { toggleInitApp } from '../app';
-import { setSelectedDialogId } from './selectedDialog';
+import { setSelectedDialog } from './selectedDialog';
 
 export const $dialogList = createStore<DialogsStoreType>({
   list: [],
@@ -40,8 +40,8 @@ sample({
 
 sample({
   clock: fetchDialogListFx.doneData,
-  fn: ({ dialog }) => dialog.dialog_id,
-  target: setSelectedDialogId,
+  fn: ({ dialog }) => dialog,
+  target: setSelectedDialog,
 });
 
 sample({

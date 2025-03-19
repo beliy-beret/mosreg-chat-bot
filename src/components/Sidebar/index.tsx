@@ -3,7 +3,7 @@ import style from './style.module.scss';
 import { useState } from 'react';
 import { History } from './History';
 import { useUnit } from 'effector-react';
-import { createDialog } from '../../store/dialogs';
+import { createDialog } from 'store/dialogs';
 
 export const Sidebar = () => {
   const onCreateDialog = useUnit(createDialog);

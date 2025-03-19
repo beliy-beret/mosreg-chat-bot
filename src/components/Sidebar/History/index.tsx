@@ -1,12 +1,12 @@
 import { HistoryItem } from './HistoryItem';
-import { useUnit } from 'effector-react/compat';
-import { $dialogList, $selectedDialogId, setSelectedDialogId } from 'store/dialogs';
+import { useUnit } from 'effector-react';
+import { $dialogList, $selectedDialog, setSelectedDialog } from 'store/dialogs';
 
 export const History = () => {
-  const [{ list, loading }, selectedDialogId, onItemClick] = useUnit([
+  const [{ list, loading }, selectedDialog, onItemClick] = useUnit([
     $dialogList,
-    $selectedDialogId,
-    setSelectedDialogId,
+    $selectedDialog,
+    setSelectedDialog,
   ]);
 
   if (loading) {
@@ -25,8 +25,8 @@ export const History = () => {
             key={dialog.dialog_id}
             id={dialog.dialog_id}
             title={dialog.dialog_title}
-            selected={dialog.dialog_id === selectedDialogId}
-            onSelected={() => onItemClick(dialog.dialog_id)}
+            selected={dialog.dialog_id === selectedDialog?.dialog_id}
+            onSelected={() => onItemClick(dialog)}
           />
         ))}
     </div>
