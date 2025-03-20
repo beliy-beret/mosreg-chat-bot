@@ -1,7 +1,6 @@
 import style from './style.module.scss';
 import avatar from 'assets/images/bot-avatar.svg';
 import { MessageForm } from '../MessageForm';
-import { useState } from 'react';
 
 const questions = [
   'Подобрать меры поддержки',
@@ -15,8 +14,6 @@ type Props = {
 };
 
 export const StartMessage = ({ onSubmit }: Props) => {
-  const [question, setQuestion] = useState('');
-
   return (
     <div className={style.wrapper}>
       <div className={style.message}>
@@ -30,12 +27,12 @@ export const StartMessage = ({ onSubmit }: Props) => {
           </div>
         </div>
 
-        <MessageForm defaultValue={question} onSubmit={onSubmit} />
+        <MessageForm onSubmit={onSubmit} />
 
         <div className={style.questionList}>
           {questions.map((question, i) => {
             return (
-              <div className={style.listItem} onClick={() => setQuestion(question)} key={i}>
+              <div className={style.listItem} onClick={() => onSubmit(question)} key={i}>
                 {question}
               </div>
             );

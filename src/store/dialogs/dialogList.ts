@@ -10,7 +10,7 @@ export const $dialogList = createStore<DialogsStoreType>({
   errorMessage: '',
 });
 
-const { setList, setLoading, setErrorMessage } = createApi($dialogList, {
+const { setList, setLoading, setErrorMessage, updateList } = createApi($dialogList, {
   setList: (state, list: DialogType[]) => ({ ...state, list }),
   setLoading: (state, loading: boolean) => {
     return { ...state, loading };
@@ -19,6 +19,7 @@ const { setList, setLoading, setErrorMessage } = createApi($dialogList, {
     const errorMessage = error.message;
     return { ...state, errorMessage };
   },
+  updateList: (state, dialog: DialogType) => ({ ...state, list: [...state.list, dialog] }),
 });
 
 export const fetchDialogList = createEvent();
@@ -57,8 +58,12 @@ sample({
 });
 
 export const createDialog = createEvent();
-const createDialogFx = createEffect<void, void, Error>(async () => {
-  await instance.post<{ dialog: DialogType; dialogs: DialogType[] }>('/create_dialog');
+const createDialogFx = createEffect<void, DialogType, Error>(async () => {
+  const { data } = await instance.post<{ dialog: DialogType; dialogs: DialogType[] }>(
+    '/create_dialog',
+  );
+
+  return data.dialog;
 });
 
 sample({
@@ -67,8 +72,8 @@ sample({
 });
 
 sample({
-  clock: createDialogFx.done,
-  target: fetchDialogList,
+  clock: createDialogFx.doneData,
+  target: updateList,
 });
 
 export const deleteDialog = createEvent<string>();
