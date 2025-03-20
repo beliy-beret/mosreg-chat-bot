@@ -3,7 +3,6 @@ import { DialogsStoreType, DialogType } from './types';
 import { instance } from '../axiosInstance';
 import { toggleInitApp } from '../app';
 import { setSelectedDialog } from './selectedDialog';
-import { debounce } from 'patronum/debounce';
 
 export const $dialogList = createStore<DialogsStoreType>({
   list: [],
@@ -13,14 +12,14 @@ export const $dialogList = createStore<DialogsStoreType>({
 
 const { setList, setLoading, setErrorMessage } = createApi($dialogList, {
   setList: (state, list: DialogType[]) => ({ ...state, list }),
-  setLoading: (state, loading: boolean) => ({ ...state, loading }),
+  setLoading: (state, loading: boolean) => {
+    return { ...state, loading };
+  },
   setErrorMessage: (state, error: Error) => {
     const errorMessage = error.message;
     return { ...state, errorMessage };
   },
 });
-
-debounce(setLoading, 500);
 
 export const fetchDialogList = createEvent();
 const fetchDialogListFx = createEffect<void, { dialog: DialogType; dialogs: DialogType[] }, Error>(

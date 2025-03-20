@@ -18,6 +18,7 @@ export const Dialog = () => {
   ]);
   const historyRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<MessageType[]>([]);
+  const [pageLoading, setPageLoading] = useState(false);
 
   const onSendMessage = (text: string) => {
     const message: MessageType = {
@@ -45,7 +46,14 @@ export const Dialog = () => {
     setMessages(list);
   }, [list]);
 
-  if (loading) {
+  useEffect(() => {
+    if (loading) return setPageLoading(true);
+    const timeoutId = setTimeout(() => setPageLoading(false), 300);
+
+    return () => clearTimeout(timeoutId);
+  }, [loading]);
+
+  if (pageLoading) {
     return (
       <section className={style.dialog}>
         <h2>Loading...</h2>

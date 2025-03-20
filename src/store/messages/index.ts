@@ -26,20 +26,19 @@ const fetchMessageListFx = createEffect<string, MessageType[], Error>(async (dia
   const { data } = await instance.get<{ messages: MessageType[] }>('/get_dialog_messages', {
     params: { dialog_id },
   });
-
   return data.messages;
 });
 
+sample({
+  clock: fetchMessageListFx.pending,
+  target: setLoading,
+});
 sample({
   clock: fetchMessageList,
   source: $selectedDialog,
   filter: (dialog) => dialog !== null,
   fn: (dialog) => dialog!.dialog_id!,
   target: fetchMessageListFx,
-});
-sample({
-  clock: fetchMessageListFx.pending,
-  target: setLoading,
 });
 sample({
   clock: fetchMessageListFx.failData,
@@ -73,7 +72,6 @@ sample({
   }),
   target: sendMessageFx,
 });
-
 sample({
   clock: sendMessageFx.pending,
   target: setSendingMessage,
