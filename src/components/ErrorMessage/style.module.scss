@@ -1,0 +1,73 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100dvw;
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  background-color: #29273EB2;
+}
+
+.card {
+  padding: 24px;
+  max-width: 272px;
+  border-radius: 12px;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+
+  .title {
+    font-size: 24px;
+    font-weight: 900;
+    background: radial-gradient(92.91% 92.91% at 7.09% 10.42%, #1B4DCB 0%, #054CFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .message {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 150%;
+    color: var(--black-800);
+  }
+
+  .btns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    button {
+      padding: 6px 16px;
+    }
+
+    a {
+      border-radius: 8px;
+      padding: 5px 12px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid var(--black-700);
+      color: var(--black-700);
+      background-color: transparent;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 135%;
+
+      &:active {
+        border-color: var(--black-600);
+      }
+
+      @media(hover: hover) {
+        &:hover:not(:active) {
+          border-color: var(--black-500);
+        }
+      }
+    }
+  }
+}

@@ -6,13 +6,12 @@
   justify-content: space-between;
 
   button {
-    background-color: var(--black-400);
-    border-radius: 8px;
     display: grid;
     place-items: center;
     width: 28px;
     aspect-ratio: 1;
     border: none;
+    padding: 0;
 
     svg {
       width: 16px;

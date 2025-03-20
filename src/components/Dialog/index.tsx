@@ -19,7 +19,7 @@ export const Dialog = () => {
   ]);
   const historyRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<MessageType[]>([]);
-  const [pageLoading, setPageLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const onSendMessage = (text: string) => {
     const message: MessageType = {

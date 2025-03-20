@@ -54,11 +54,12 @@ export const Sidebar = () => {
       </div>
 
       <div className={style.header}>
-        <button onClick={toggleOpen}>
+        <button className="btn black" onClick={toggleOpen}>
           <Burger />
         </button>
-        <button onClick={onCreateDialog}>
-          <AddDialog />
+        <button className="btn black" onClick={onCreateDialog} disabled={createDialogPending}>
+          {createDialogPending && <Spinner size="sm" />}
+          {!createDialogPending && <AddDialog />}
         </button>
       </div>
     </div>

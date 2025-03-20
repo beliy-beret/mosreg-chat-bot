@@ -3,15 +3,14 @@ import { Dialog } from './components/Dialog';
 import { useEffect } from 'react';
 import { useUnit } from 'effector-react';
 import { fetchDialogList, $dialogList } from './store/dialogs';
+import { $messageList } from './store/messages';
 import { $initApp } from './store/app';
 import { Spinner } from './components/Spinner';
+import { ErrorMessage } from './components/ErrorMessage';
 
 export const App = () => {
-  const [{ errorMessage }, initApp, getDialogList] = useUnit([
-    $dialogList,
-    $initApp,
-    fetchDialogList,
-  ]);
+  const [{ errorMessage: dialogError }, { errorMessage: messageError }, initApp, getDialogList] =
+    useUnit([$dialogList, $messageList, $initApp, fetchDialogList]);
 
   useEffect(() => {
     getDialogList();
@@ -27,18 +26,13 @@ export const App = () => {
     );
   }
 
-  if (errorMessage) {
-    return (
-      <div>
-        <p>{errorMessage}</p>
-      </div>
-    );
-  }
-
   return (
-    <main>
-      <Sidebar />
-      <Dialog />
-    </main>
+    <>
+      {(dialogError || messageError) && <ErrorMessage />}
+      <main>
+        <Sidebar />
+        <Dialog />
+      </main>
+    </>
   );
 };

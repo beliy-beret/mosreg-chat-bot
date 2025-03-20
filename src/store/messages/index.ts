@@ -15,10 +15,7 @@ const { setList, setLoading, setErrorMessage, setSendingMessage } = createApi($m
   setList: (state, list: MessageType[]) => ({ ...state, list }),
   setLoading: (state, loading: boolean) => ({ ...state, loading }),
   setSendingMessage: (state, sendingMessage: boolean) => ({ ...state, sendingMessage }),
-  setErrorMessage: (state, error: Error) => {
-    const errorMessage = error.message;
-    return { ...state, errorMessage };
-  },
+  setErrorMessage: (state, errorMessage: string) => ({ ...state, errorMessage }),
 });
 
 export const fetchMessageList = createEvent();
@@ -30,10 +27,6 @@ const fetchMessageListFx = createEffect<string, MessageType[], Error>(async (dia
 });
 
 sample({
-  clock: fetchMessageListFx.pending,
-  target: setLoading,
-});
-sample({
   clock: fetchMessageList,
   source: $selectedDialog,
   filter: (dialog) => dialog !== null,
@@ -42,11 +35,21 @@ sample({
 });
 sample({
   clock: fetchMessageListFx.failData,
+  fn: (error) => error.message,
   target: setErrorMessage,
+});
+sample({
+  clock: fetchMessageListFx.pending,
+  target: setLoading,
 });
 sample({
   clock: fetchMessageListFx.doneData,
   target: setList,
+});
+sample({
+  clock: fetchMessageListFx.done,
+  fn: () => '',
+  target: setErrorMessage,
 });
 
 export const sendMessage = createEvent<{
@@ -75,4 +78,14 @@ sample({
 sample({
   clock: sendMessageFx.pending,
   target: setSendingMessage,
+});
+sample({
+  clock: sendMessageFx.failData,
+  fn: (error) => error.message,
+  target: setErrorMessage,
+});
+sample({
+  clock: sendMessageFx.done,
+  fn: () => '',
+  target: setErrorMessage,
 });

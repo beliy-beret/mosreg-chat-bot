@@ -15,10 +15,7 @@ const { setList, setLoading, setErrorMessage, updateList } = createApi($dialogLi
   setLoading: (state, loading: boolean) => {
     return { ...state, loading };
   },
-  setErrorMessage: (state, error: Error) => {
-    const errorMessage = error.message;
-    return { ...state, errorMessage };
-  },
+  setErrorMessage: (state, errorMessage: string) => ({ ...state, errorMessage }),
   updateList: (state, dialog: DialogType) => ({ ...state, list: [...state.list, dialog] }),
 });
 
@@ -34,27 +31,29 @@ sample({
   clock: fetchDialogList,
   target: fetchDialogListFx,
 });
-
 sample({
   clock: fetchDialogListFx.doneData,
   fn: ({ dialogs }) => dialogs,
   target: [setList, toggleInitApp],
 });
-
+sample({
+  clock: fetchDialogListFx.done,
+  fn: () => '',
+  target: setErrorMessage,
+});
 sample({
   clock: fetchDialogListFx.doneData,
   fn: ({ dialog }) => dialog,
   target: setSelectedDialog,
 });
-
 sample({
   clock: fetchDialogListFx.pending,
   target: setLoading,
 });
-
 sample({
   clock: fetchDialogListFx.failData,
-  target: setErrorMessage,
+  fn: (error) => error.message,
+  target: [setErrorMessage, toggleInitApp],
 });
 
 export const createDialog = createEvent();
@@ -70,10 +69,19 @@ sample({
   clock: createDialog,
   target: createDialogFx,
 });
-
 sample({
   clock: createDialogFx.doneData,
   target: updateList,
+});
+sample({
+  clock: createDialogFx.doneData,
+  fn: () => '',
+  target: setErrorMessage,
+});
+sample({
+  clock: createDialogFx.failData,
+  fn: (error) => error.message,
+  target: setErrorMessage,
 });
 
 export const deleteDialog = createEvent<string>();
@@ -85,10 +93,15 @@ sample({
   clock: deleteDialog,
   target: deleteDialogFx,
 });
-
 sample({
   clock: deleteDialogFx.done,
-  target: fetchDialogList,
+  fn: () => '',
+  target: [fetchDialogList, setErrorMessage],
+});
+sample({
+  clock: deleteDialogFx.failData,
+  fn: (error) => error.message,
+  target: setErrorMessage,
 });
 
 export const $createDialogPending = createStore<boolean>(false);
