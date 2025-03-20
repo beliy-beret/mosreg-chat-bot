@@ -8,9 +8,10 @@ import { useUnit } from 'effector-react/compat';
 import { sendMessage, fetchMessageList, $messageList } from 'store/messages';
 import { MessageType } from 'store/messages/types';
 import { $selectedDialog } from 'store/dialogs';
+import { Spinner } from '../Spinner';
 
 export const Dialog = () => {
-  const [dialog, { list, loading }, sendMess, getMessageList] = useUnit([
+  const [dialog, { list, loading, sendingMessage }, sendMess, getMessageList] = useUnit([
     $selectedDialog,
     $messageList,
     sendMessage,
@@ -56,7 +57,9 @@ export const Dialog = () => {
   if (pageLoading) {
     return (
       <section className={style.dialog}>
-        <h2>Loading...</h2>
+        <div className={style.spinnerWrapper}>
+          <Spinner />
+        </div>
       </section>
     );
   }
@@ -68,7 +71,7 @@ export const Dialog = () => {
         <>
           <History ref={historyRef} messages={messages} title={dialog?.dialog_title || ''} />
           <div className={style.messageForm}>
-            <MessageForm onSubmit={onSendMessage} />
+            <MessageForm onSubmit={onSendMessage} rows={1} disabled={sendingMessage} />
           </div>
         </>
       )}

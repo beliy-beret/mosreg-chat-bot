@@ -3,19 +3,11 @@ import { useUnit } from 'effector-react';
 import { $dialogList, $selectedDialog, setSelectedDialog } from 'store/dialogs';
 
 export const History = () => {
-  const [{ list, loading }, selectedDialog, onItemClick] = useUnit([
+  const [{ list }, selectedDialog, onItemClick] = useUnit([
     $dialogList,
     $selectedDialog,
     setSelectedDialog,
   ]);
-
-  if (loading) {
-    return (
-      <div>
-        <h4>Loading ...</h4>
-      </div>
-    );
-  }
 
   return (
     <div>

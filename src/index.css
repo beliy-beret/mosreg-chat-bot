@@ -121,8 +121,14 @@ main {
       box-shadow: 0 0 0 3px var(--black-100);
     }
 
+    &:disabled {
+      background-color: var(--black-50);
+      cursor: auto;
+      color: var(--black-200) !important;
+    }
+
     @media(hover: hover) {
-      &:hover {
+      &:hover:not(:disabled) {
         background-color: var(--black-500);
       }
     }
@@ -138,6 +144,12 @@ main {
 
     &:focus-visible {
       box-shadow: 0 0 0 3px var(--blue-100);
+    }
+
+    &:disabled {
+      background-color: var(--black-50);
+      cursor: auto;
+      color: var(--black-200) !important;
     }
 
     @media(hover: hover) {
@@ -159,6 +171,12 @@ main {
       box-shadow: 0 0 0 3px var(--black-100);
     }
 
+    &:disabled {
+      background-color: var(--black-50);
+      cursor: auto;
+      color: var(--black-200) !important;
+    }
+
     @media(hover: hover) {
       &:hover {
         background-color: var(--black-50);
@@ -166,3 +184,24 @@ main {
     }
   }
 }
+
+.lg {
+  width: 48px;
+}
+.md {
+  width: 28px;
+}
+.sm {
+  width: 16px;
+}
+
+.spinner-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 100dvw;
+  height: 100dvh;
+}
+

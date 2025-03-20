@@ -21,3 +21,10 @@
   margin-inline: auto;
   background-color: var(--body);
 }
+
+.spinnerWrapper {
+  display: grid;
+  place-items: center;
+  width: 100dvw;
+  height: 100dvh;
+}

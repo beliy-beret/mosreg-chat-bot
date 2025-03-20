@@ -3,10 +3,11 @@ import style from './style.module.scss';
 import { useState } from 'react';
 import { History } from './History';
 import { useUnit } from 'effector-react';
-import { createDialog } from 'store/dialogs';
+import { createDialog, $createDialogPending } from 'store/dialogs';
+import { Spinner } from '../Spinner';
 
 export const Sidebar = () => {
-  const onCreateDialog = useUnit(createDialog);
+  const [createDialogPending, onCreateDialog] = useUnit([$createDialogPending, createDialog]);
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen(!open);
@@ -28,9 +29,23 @@ export const Sidebar = () => {
           </div>
 
           <div className={style.chatList}>
-            <button className={`${style.addDialogBtn} btn black`} onClick={onCreateDialog}>
-              <AddDialog />
-              Новый чат
+            <button
+              className={`${style.addDialogBtn} btn black`}
+              onClick={onCreateDialog}
+              disabled={createDialogPending}
+            >
+              {!createDialogPending && (
+                <>
+                  <AddDialog />
+                  Новый чат
+                </>
+              )}
+              {createDialogPending && (
+                <>
+                  <Spinner size="sm" />
+                  Подождите...
+                </>
+              )}
             </button>
 
             <History />

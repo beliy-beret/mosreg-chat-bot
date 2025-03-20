@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useUnit } from 'effector-react';
 import { fetchDialogList, $dialogList } from './store/dialogs';
 import { $initApp } from './store/app';
+import { Spinner } from './components/Spinner';
 
 export const App = () => {
   const [{ errorMessage }, initApp, getDialogList] = useUnit([
@@ -18,9 +19,11 @@ export const App = () => {
 
   if (!initApp) {
     return (
-      <div>
-        <h1>Loading ...</h1>
-      </div>
+      <main>
+        <div className="spinner-wrapper">
+          <Spinner />
+        </div>
+      </main>
     );
   }
 

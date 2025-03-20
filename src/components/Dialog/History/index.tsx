@@ -4,7 +4,8 @@ import style from './style.module.scss';
 import { Message } from '../Message';
 import { MessageType } from 'store/messages/types.ts';
 import { useUnit } from 'effector-react';
-import { $messageList } from '../../../store/messages';
+import { $messageList } from 'store/messages';
+import { AssistantBusyMessage } from '../AssistantBusyMessage';
 
 type Props = {
   messages: MessageType[];
@@ -25,7 +26,7 @@ export const History = forwardRef<HTMLDivElement, Props>(({ messages, title }, r
             isBot={message.user_type === 'assistant'}
           />
         ))}
-        {sendingMessage && <div>Бот думает</div>}
+        {sendingMessage && <AssistantBusyMessage />}
       </div>
     </div>
   );

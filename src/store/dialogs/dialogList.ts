@@ -85,3 +85,6 @@ sample({
   clock: deleteDialogFx.done,
   target: fetchDialogList,
 });
+
+export const $createDialogPending = createStore<boolean>(false);
+$createDialogPending.on(createDialogFx.pending, (_, pending) => pending);
