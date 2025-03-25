@@ -88,6 +88,11 @@ main {
   @media (min-width: 768px) {
     flex-direction: row;
   }
+
+  @media(min-width: 1366px) {
+    max-width: 1366px;
+    margin-inline: auto;
+  }
 }
 
 .btn {
