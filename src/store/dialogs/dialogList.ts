@@ -33,7 +33,7 @@ sample({
 });
 sample({
   clock: fetchDialogListFx.doneData,
-  fn: ({ dialogs }) => dialogs,
+  fn: ({ dialogs }) => (dialogs?.length ? dialogs : []),
   target: [setList, toggleInitApp],
 });
 sample({

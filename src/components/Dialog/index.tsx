@@ -64,6 +64,14 @@ export const Dialog = () => {
     );
   }
 
+  if (!dialog) {
+    return (
+      <section className={style.dialog}>
+        <p>Нет ни одного диалога</p>
+      </section>
+    );
+  }
+
   return (
     <section className={style.dialog}>
       {!messages.length && <StartMessage onSubmit={onSendMessage} />}
