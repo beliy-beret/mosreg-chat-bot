@@ -38,14 +38,39 @@
 
     .logo {
       display: flex;
-      align-items: center;
+      align-items: end;
       gap: 8px;
 
-      .name {
-        font-size: 11px;
-        font-weight: 700;
-        line-height: 132%;
-        color: var(--black-700)
+      svg {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+      }
+
+      .portalLogo {
+        display: flex;
+        gap: 8px;
+        align-items: end;
+      }
+
+      .portalName {
+        display: flex;
+        flex-direction: column;
+
+        .botName {
+          font-family: 'Manrope', sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          color: #1D1C29;
+        }
+
+        .botDescription {
+          font-family: 'Manrope', sans-serif;
+          font-size: 11px;
+          font-weight: 500;
+          color: #1B4DCB;
+          line-height: 100%;
+        }
       }
 
       button {

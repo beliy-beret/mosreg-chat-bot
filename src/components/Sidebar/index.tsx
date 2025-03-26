@@ -1,4 +1,4 @@
-import { Burger, AddDialog, Logo } from 'assets/icons';
+import { Burger, AddDialog, Logo, BotLogo } from 'assets/icons';
 import style from './style.module.scss';
 import { useState } from 'react';
 import { History } from './History';
@@ -18,9 +18,12 @@ export const Sidebar = () => {
         <div className={style.nav}>
           <div className={style.logo}>
             <Logo />
-            <span className={style.name}>
-              Инвестиционный портал
-              <br /> Московской области
+            <span className={style.portalLogo}>
+              <BotLogo />
+              <span className={style.portalName}>
+                <span className={style.botName}>Ипполит</span>
+                <span className={style.botDescription}>Интеллектуальный помошник</span>
+              </span>
             </span>
 
             <button onClick={toggleOpen}>
