@@ -97,7 +97,7 @@ export const Dialog = () => {
           <div className={style.messageForm}>
             {!!messages.length && (
               <button className={`btn gray ${style.clear}`} onClick={onClearChat}>
-                Отчистить
+                Очистить
               </button>
             )}
 
