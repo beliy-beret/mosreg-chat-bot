@@ -8,3 +8,9 @@ export type DialogType = {
 export type DialogsStoreType = Store & {
   list: DialogType[];
 };
+
+export type UpdateDialogTitlePayload = {
+  dialog_id: string;
+  title: string;
+  closeEditMode: () => void;
+};

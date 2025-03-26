@@ -1,21 +1,29 @@
 import style from './style.module.scss';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { Pen } from 'assets/icons';
+import { useUnit } from 'effector-react';
+import { updateDialogTitle } from 'store/dialogs';
 
 type Props = {
   themeName: string;
+  dialogId: string;
 };
 
-export const Title = ({ themeName }: Props) => {
+export const Title = ({ themeName, dialogId }: Props) => {
+  const updateTitle = useUnit(updateDialogTitle);
   const [isEdit, setIsEdit] = useState(false);
   const [inputValue, setInputValue] = useState(themeName);
+
+  const closeEditMode = () => {
+    setIsEdit(false);
+  };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.currentTarget.value);
   };
 
   const sendNewTitle = () => {
-    setIsEdit(false);
+    updateTitle({ title: inputValue, dialog_id: dialogId, closeEditMode });
   };
 
   const onEnterPress = (event: KeyboardEvent) => {

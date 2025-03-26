@@ -3,6 +3,7 @@ export {
   fetchDialogList,
   createDialog,
   deleteDialog,
+  updateDialogTitle,
   $createDialogPending,
 } from './dialogList';
-export { setSelectedDialog, $selectedDialog } from './selectedDialog';
+export { setSelectedDialog, $selectedDialog, updateSelectedDialogTitle } from './selectedDialog';

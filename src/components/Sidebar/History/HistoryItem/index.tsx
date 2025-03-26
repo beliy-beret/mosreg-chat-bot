@@ -1,6 +1,6 @@
 import style from './style.module.scss';
 import { useUnit } from 'effector-react';
-import { deleteDialog } from 'store/dialogs';
+import { deleteDialog, updateDialogTitle } from 'store/dialogs';
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { Tooltip } from 'components/Tooltip';
 import { Pen, Trash } from 'assets/icons';
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
-  const delDialog = useUnit(deleteDialog);
+  const [delDialog, updateTitle] = useUnit([deleteDialog, updateDialogTitle]);
   const [isEdit, setIsEdit] = useState(false);
   const [isShowActions, setIsShowActions] = useState(false);
   const [inputValue, setInputValue] = useState(title);
@@ -24,6 +24,10 @@ export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
     setInputValue(event.currentTarget.value);
   };
 
+  const closeEditMode = () => {
+    setIsEdit(false);
+  };
+
   const onEdit = () => {
     setIsEdit(true);
     setIsShowActions(false);
@@ -32,8 +36,9 @@ export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
   const onDelete = () => {
     delDialog(id);
   };
+
   const sendNewTitle = () => {
-    setIsEdit(false);
+    updateTitle({ dialog_id: id, title: inputValue, closeEditMode: closeEditMode });
   };
 
   const onEnterPress = (event: KeyboardEvent) => {

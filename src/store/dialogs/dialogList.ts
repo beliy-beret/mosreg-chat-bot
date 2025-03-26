@@ -1,8 +1,8 @@
 import { createStore, createEffect, createEvent, sample, createApi } from 'effector';
-import { DialogsStoreType, DialogType } from './types';
+import { DialogsStoreType, DialogType, UpdateDialogTitlePayload } from './types';
 import { instance } from '../axiosInstance';
 import { toggleInitApp } from '../app';
-import { setSelectedDialog } from './selectedDialog';
+import { setSelectedDialog, updateSelectedDialogTitle } from './selectedDialog';
 
 export const $dialogList = createStore<DialogsStoreType>({
   list: [],
@@ -10,19 +10,29 @@ export const $dialogList = createStore<DialogsStoreType>({
   errorMessage: '',
 });
 
-const { setList, setLoading, setErrorMessage, updateList } = createApi($dialogList, {
+const { setList, setLoading, setErrorMessage, addDialog, updateTitle } = createApi($dialogList, {
   setList: (state, list: DialogType[]) => ({ ...state, list }),
   setLoading: (state, loading: boolean) => {
     return { ...state, loading };
   },
   setErrorMessage: (state, errorMessage: string) => ({ ...state, errorMessage }),
-  updateList: (state, dialog: DialogType) => ({ ...state, list: [...state.list, dialog] }),
+  addDialog: (state, dialog: DialogType) => ({ ...state, list: [...state.list, dialog] }),
+  updateTitle: (state, payload: UpdateDialogTitlePayload) => {
+    const list = state.list.reduce((list: DialogType[], dialog) => {
+      if (dialog.dialog_id === payload.dialog_id) {
+        return [...list, { ...dialog, dialog_title: payload.title }];
+      }
+      return [...list, dialog];
+    }, []);
+
+    return { ...state, list };
+  },
 });
 
 export const fetchDialogList = createEvent();
 const fetchDialogListFx = createEffect<void, { dialog: DialogType; dialogs: DialogType[] }, Error>(
   async () => {
-    const { data } = await instance.get<{ dialog: DialogType; dialogs: DialogType[] }>('/');
+    const { data } = await instance.get<{ dialog: DialogType; dialogs: DialogType[] }>('/l');
     return data;
   },
 );
@@ -71,7 +81,7 @@ sample({
 });
 sample({
   clock: createDialogFx.doneData,
-  target: updateList,
+  target: addDialog,
 });
 sample({
   clock: createDialogFx.doneData,
@@ -102,6 +112,31 @@ sample({
   clock: deleteDialogFx.failData,
   fn: (error) => error.message,
   target: setErrorMessage,
+});
+
+export const updateDialogTitle = createEvent<UpdateDialogTitlePayload>();
+const updateDialogTitleFx = createEffect<UpdateDialogTitlePayload, UpdateDialogTitlePayload, Error>(
+  async (payload) => {
+    await instance.post('/update_dialog', payload);
+    payload.closeEditMode();
+
+    return payload;
+  },
+);
+
+sample({
+  clock: updateDialogTitle,
+  target: updateDialogTitleFx,
+});
+
+sample({
+  clock: updateDialogTitleFx.doneData,
+  target: updateTitle,
+});
+sample({
+  clock: updateDialogTitleFx.doneData,
+  fn: (payload) => payload.title,
+  target: updateSelectedDialogTitle,
 });
 
 export const $createDialogPending = createStore<boolean>(false);

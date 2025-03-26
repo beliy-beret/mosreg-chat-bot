@@ -77,7 +77,12 @@ export const Dialog = () => {
       {!messages.length && <StartMessage onSubmit={onSendMessage} />}
       {!!messages.length && (
         <>
-          <History ref={historyRef} messages={messages} title={dialog?.dialog_title || ''} />
+          <History
+            ref={historyRef}
+            messages={messages}
+            title={dialog.dialog_title || ''}
+            dialogId={dialog.dialog_id}
+          />
           <div className={style.messageForm}>
             <MessageForm onSubmit={onSendMessage} rows={1} disabled={sendingMessage} />
           </div>
