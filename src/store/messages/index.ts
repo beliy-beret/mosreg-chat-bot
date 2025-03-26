@@ -89,3 +89,18 @@ sample({
   fn: () => '',
   target: setErrorMessage,
 });
+
+export const clearMessageList = createEvent<string>();
+const clearMessageListFx = createEffect<string, void, Error>(async (dialog_id) => {
+  await instance.post('/clear_history', { dialog_id });
+});
+
+sample({
+  clock: clearMessageList,
+  target: clearMessageListFx,
+});
+sample({
+  clock: clearMessageListFx.done,
+  fn: () => [],
+  target: setList,
+});
