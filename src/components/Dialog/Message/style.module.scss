@@ -10,7 +10,6 @@
 
   .text {
     flex: 1;
-
   }
 
   .imgContainer {
@@ -35,6 +34,16 @@
 
     .text {
       white-space: pre-wrap;
+    }
+  }
+
+  &[aria-selected='true'] {
+    p {
+      margin-top: 14px;
+    }
+    ol, ul {
+      margin-top: 14px;
+      padding-left: 16px;
     }
   }
 }
