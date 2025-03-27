@@ -81,7 +81,7 @@ sample({
 });
 sample({
   clock: createDialogFx.doneData,
-  target: addDialog,
+  target: [addDialog, setSelectedDialog],
 });
 sample({
   clock: createDialogFx.doneData,
