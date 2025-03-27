@@ -18,7 +18,7 @@ export const { setList, setLoading, setErrorMessage, addDialog, updateTitle } = 
       return { ...state, loading };
     },
     setErrorMessage: (state, errorMessage: string) => ({ ...state, errorMessage }),
-    addDialog: (state, dialog: DialogType) => ({ ...state, list: [...state.list, dialog] }),
+    addDialog: (state, dialog: DialogType) => ({ ...state, list: [dialog, ...state.list] }),
     updateTitle: (state, payload: UpdateDialogTitlePayload) => {
       const list = state.list.reduce((list: DialogType[], dialog) => {
         if (dialog.dialog_id === payload.dialog_id) {
