@@ -35,6 +35,9 @@
     padding: 24px 24px 24px 10px;
     max-width: 314px;
     height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 
     .logo {
       display: flex;
@@ -93,6 +96,10 @@
 
     .chatList {
       margin-top: 48px;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
 
       .addDialogBtn {
         margin-bottom: 48px;
@@ -116,6 +123,9 @@
 }
 
 .sideBar {
+  height: 100%;
+  overflow: hidden;
+
   @media (min-width: 768px) {
     .header {
       display: none;
@@ -124,7 +134,6 @@
     .wrapper {
       position: static;
       width: 238px;
-      height: 100%;
       background-color: transparent;
       translate: unset;
 
