@@ -12,5 +12,5 @@ export type DialogsStoreType = Store & {
 export type UpdateDialogTitlePayload = {
   dialog_id: string;
   title: string;
-  closeEditMode: () => void;
+  closeEditMode?: () => void;
 };

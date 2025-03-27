@@ -25,13 +25,13 @@ export const Dialog = () => {
   const onSendMessage = (text: string) => {
     const message: MessageType = {
       user_type: 'user',
-      format_message_text: text,
+      format_message_text: [text],
       created_at: String(new Date()),
     };
 
     setMessages((prev) => [...prev, message]);
 
-    sendMess({ setMessage: setMessages, text });
+    sendMess({ setMessage: setMessages, isFirstMessage: !messages.length, text });
   };
 
   const onScrollToBottom = useCallback(() => {

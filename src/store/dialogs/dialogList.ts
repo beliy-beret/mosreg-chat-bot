@@ -10,24 +10,27 @@ export const $dialogList = createStore<DialogsStoreType>({
   errorMessage: '',
 });
 
-const { setList, setLoading, setErrorMessage, addDialog, updateTitle } = createApi($dialogList, {
-  setList: (state, list: DialogType[]) => ({ ...state, list }),
-  setLoading: (state, loading: boolean) => {
-    return { ...state, loading };
-  },
-  setErrorMessage: (state, errorMessage: string) => ({ ...state, errorMessage }),
-  addDialog: (state, dialog: DialogType) => ({ ...state, list: [...state.list, dialog] }),
-  updateTitle: (state, payload: UpdateDialogTitlePayload) => {
-    const list = state.list.reduce((list: DialogType[], dialog) => {
-      if (dialog.dialog_id === payload.dialog_id) {
-        return [...list, { ...dialog, dialog_title: payload.title }];
-      }
-      return [...list, dialog];
-    }, []);
+export const { setList, setLoading, setErrorMessage, addDialog, updateTitle } = createApi(
+  $dialogList,
+  {
+    setList: (state, list: DialogType[]) => ({ ...state, list }),
+    setLoading: (state, loading: boolean) => {
+      return { ...state, loading };
+    },
+    setErrorMessage: (state, errorMessage: string) => ({ ...state, errorMessage }),
+    addDialog: (state, dialog: DialogType) => ({ ...state, list: [...state.list, dialog] }),
+    updateTitle: (state, payload: UpdateDialogTitlePayload) => {
+      const list = state.list.reduce((list: DialogType[], dialog) => {
+        if (dialog.dialog_id === payload.dialog_id) {
+          return [...list, { ...dialog, dialog_title: payload.title }];
+        }
+        return [...list, dialog];
+      }, []);
 
-    return { ...state, list };
+      return { ...state, list };
+    },
   },
-});
+);
 
 export const fetchDialogList = createEvent();
 const fetchDialogListFx = createEffect<void, { dialog: DialogType; dialogs: DialogType[] }, Error>(
@@ -118,7 +121,9 @@ export const updateDialogTitle = createEvent<UpdateDialogTitlePayload>();
 const updateDialogTitleFx = createEffect<UpdateDialogTitlePayload, UpdateDialogTitlePayload, Error>(
   async (payload) => {
     await instance.post('/update_dialog', payload);
-    payload.closeEditMode();
+    if (payload.closeEditMode) {
+      payload.closeEditMode();
+    }
 
     return payload;
   },
