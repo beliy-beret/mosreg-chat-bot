@@ -2,7 +2,6 @@ import style from './style.module.scss';
 import { useUnit } from 'effector-react';
 import { deleteDialog, updateDialogTitle } from 'store/dialogs';
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
-import { Tooltip } from 'components/Tooltip';
 import { Pen, Trash } from 'assets/icons';
 
 type Props = {
@@ -77,19 +76,6 @@ export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
 
       {!isEdit && (
         <div className={style.historyItem} aria-selected={selected}>
-          {isShowActions && (
-            <Tooltip ref={tooltipRef}>
-              <button className={style.actionsItem} onClick={onEdit}>
-                <Pen />
-                Редактировать тему
-              </button>
-              <button className={style.actionsItem} onClick={onDelete}>
-                <Trash />
-                Удалить
-              </button>
-            </Tooltip>
-          )}
-
           <span className={style.title}>{title}</span>
 
           <button
@@ -109,6 +95,17 @@ export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
               />
             </svg>
           </button>
+
+          {isShowActions && (
+            <div className={style.actions} ref={tooltipRef}>
+              <button className={`btn gray`} onClick={onDelete}>
+                <Trash />
+              </button>
+              <button className={`btn gray`} onClick={onEdit}>
+                <Pen />
+              </button>
+            </div>
+          )}
           <button className={style.selectBtn} onClick={onSelected}></button>
         </div>
       )}
