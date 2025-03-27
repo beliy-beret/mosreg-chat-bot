@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect, KeyboardEvent } from 'react';
+import { ChangeEvent, useState, useEffect, KeyboardEvent, useRef } from 'react';
 import style from './style.module.scss';
 import { Spinner } from '../../Spinner';
 
@@ -9,8 +9,18 @@ type Props = {
   disabled?: boolean;
 };
 
-export const MessageForm = ({ onSubmit, defaultValue = '', rows = 3, disabled = false }: Props) => {
+export const MessageForm = ({ onSubmit, defaultValue = '', rows = 1, disabled = false }: Props) => {
   const [message, setMessage] = useState('');
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const resizeTextArea = () => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
+    }
+  };
+
+  useEffect(resizeTextArea, [message]);
 
   const onChangeMessage = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(event.currentTarget.value);
@@ -42,6 +52,7 @@ export const MessageForm = ({ onSubmit, defaultValue = '', rows = 3, disabled = 
   return (
     <div className={style.form}>
       <textarea
+        ref={textAreaRef}
         className={style.field}
         value={message}
         placeholder="Сообщение"
@@ -50,6 +61,7 @@ export const MessageForm = ({ onSubmit, defaultValue = '', rows = 3, disabled = 
         rows={rows}
         autoFocus
       ></textarea>
+
       <button className={`${style.submit} btn blue`} onClick={onSendMessage} disabled={disabled}>
         {disabled && <Spinner size="sm" />}
         {!disabled && (

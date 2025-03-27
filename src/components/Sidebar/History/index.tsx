@@ -1,6 +1,7 @@
 import { HistoryItem } from './HistoryItem';
 import { useUnit } from 'effector-react';
 import { $dialogList, $selectedDialog, setSelectedDialog } from 'store/dialogs';
+import style from './style.module.scss';
 
 export const History = () => {
   const [{ list }, selectedDialog, onItemClick] = useUnit([
@@ -10,7 +11,7 @@ export const History = () => {
   ]);
 
   return (
-    <div>
+    <div className={style.dialogList}>
       {!!list.length &&
         list.map((dialog) => (
           <HistoryItem

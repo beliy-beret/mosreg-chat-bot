@@ -116,7 +116,7 @@ export const Dialog = () => {
               </svg>
             </button>
             <div className={style.messageFormWrapper}>
-              <MessageForm onSubmit={onSendMessage} rows={1} disabled={sendingMessage} />
+              <MessageForm onSubmit={onSendMessage} disabled={sendingMessage} />
             </div>
           </div>
         </>

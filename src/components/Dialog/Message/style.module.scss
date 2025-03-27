@@ -10,7 +10,7 @@
 
   .text {
     flex: 1;
-    white-space: pre-wrap;
+
   }
 
   .imgContainer {
@@ -32,6 +32,10 @@
     border-radius: 6px;
     background-color: var(--blue-25);
     align-self: end;
+
+    .text {
+      white-space: pre-wrap;
+    }
   }
 }
 

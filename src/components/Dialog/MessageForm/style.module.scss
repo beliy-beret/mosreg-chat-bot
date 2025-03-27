@@ -1,21 +1,37 @@
 .form {
   display: flex;
+  align-items: center;
   background-color: var(--white);
   border-radius: 12px;
   border: 1px solid var(--black-50);
   padding: 8px;
   gap: 8px;
 
+  &:focus-within {
+    outline: none;
+    border-color: var(--blue-600);
+  }
+
+  @media(hover: hover) {
+    &:hover:not(:focus-within) {
+      border-color: var(--blue-500);
+    }
+  }
+
   .field {
-    flex: 1;
+    flex: 1 1;
     padding-left: 8px;
     outline: none;
     border: none;
     background-color: transparent;
     font-size: 14px;
     line-height: 135%;
-    color: var(--black-200);
+    color: var(--black-400);
     resize: none;
+
+    &::placeholder {
+      color: var(--black-200);
+    }
   }
 
   .submit {

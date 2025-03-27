@@ -23,7 +23,10 @@ export const Title = ({ themeName, dialogId }: Props) => {
   };
 
   const sendNewTitle = () => {
-    updateTitle({ title: inputValue, dialog_id: dialogId, closeEditMode });
+    if (themeName !== inputValue) {
+      return updateTitle({ title: inputValue, dialog_id: dialogId, closeEditMode });
+    }
+    closeEditMode();
   };
 
   const onEnterPress = (event: KeyboardEvent) => {
