@@ -12,10 +12,10 @@ type Props = {
 };
 
 export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
-  const [delDialog, updateTitle] = useUnit([deleteDialog, updateDialogTitle]);
+  const [inputValue, setInputValue] = useState(title);
   const [isEdit, setIsEdit] = useState(false);
   const [isShowActions, setIsShowActions] = useState(false);
-  const [inputValue, setInputValue] = useState(title);
+  const [delDialog, updateTitle] = useUnit([deleteDialog, updateDialogTitle]);
 
   const tooltipRef = useRef<HTMLDivElement>(null);
 
@@ -59,6 +59,9 @@ export const HistoryItem = ({ id, title, selected, onSelected }: Props) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isShowActions]);
+  useEffect(() => {
+    setInputValue(title);
+  }, [title]);
 
   return (
     <>
